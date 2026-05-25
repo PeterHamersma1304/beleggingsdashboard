@@ -6,7 +6,7 @@
 <title>Beleggingsdashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
+  :root{
     --bg:#f5f2ec;--surface:#fff;--surface2:#f0ede6;--ink:#1a1814;--ink2:#5a5650;
     --ink3:#9a948c;--accent:#2d5a3d;--accent-light:#e8f0ea;--warn:#8b4a1c;
     --warn-light:#fdf0e8;--gold:#b8860b;--gold-light:#fdf8e8;--border:#ddd9d0;--radius:12px;
@@ -22,12 +22,11 @@
   #refresh-btn{margin-top:6px;background:var(--accent);color:#fff;border:none;border-radius:6px;padding:5px 14px;font-size:.78rem;font-family:'DM Sans',sans-serif;cursor:pointer;}
   #refresh-btn:disabled{opacity:.5;cursor:not-allowed;}
 
-  /* API sleutel banner */
   #api-banner{background:var(--gold-light);border:1px solid #e8d080;border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;}
   #api-banner p{font-size:.85rem;color:var(--ink2);flex:1;min-width:200px;}
   #api-banner p a{color:var(--accent);font-weight:500;}
   .api-input-row{display:flex;gap:.5rem;flex-shrink:0;}
-  #api-key-input{border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:.82rem;font-family:'DM Sans',sans-serif;width:200px;outline:none;}
+  #api-key-input{border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:.82rem;font-family:'DM Sans',sans-serif;width:220px;outline:none;}
   #api-key-input:focus{border-color:var(--accent);}
   #save-api-btn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:5px 14px;font-size:.82rem;font-family:'DM Sans',sans-serif;cursor:pointer;}
 
@@ -79,7 +78,7 @@
     .portfolio-table td,.portfolio-table th{padding:.5rem .4rem;}
     header h1{font-size:1.5rem;}
     .q-tag{display:none;}
-    #api-key-input{width:140px;}
+    #api-key-input{width:150px;}
   }
 </style>
 </head>
@@ -94,9 +93,8 @@
     </div>
   </header>
 
-  <!-- API sleutel banner -->
   <div id="api-banner">
-    <p>Voer je gratis <a href="https://www.alphavantage.co/support/#api-key" target="_blank">Alpha Vantage API-sleutel</a> in voor live koersen. Eenmalig — wordt opgeslagen in je browser.</p>
+    <p>Voer je gratis <a href="https://financialmodelingprep.com/developer/docs" target="_blank">Financial Modeling Prep API-sleutel</a> in voor live koersen. Eenmalig — wordt opgeslagen in je browser.</p>
     <div class="api-input-row">
       <input type="text" id="api-key-input" placeholder="Plak hier je sleutel…">
       <button id="save-api-btn" onclick="slaApiSleutelOp()">Opslaan</button>
@@ -173,25 +171,25 @@
     </div>
   </div>
 
-  <footer>Geen beleggingsadvies &nbsp;·&nbsp; Koersen via Alpha Vantage, vertraging ~15 min. &nbsp;·&nbsp; Dashboard mei 2026</footer>
+  <footer>Geen beleggingsadvies &nbsp;·&nbsp; Koersen via Financial Modeling Prep &nbsp;·&nbsp; Dashboard mei 2026</footer>
 </div>
 
 <script>
-// ── Portefeuille ──
+// Symbolen in FMP formaat: Europese aandelen als TICKER.beurs
 const aandelen = [
-  { naam:'Evolution AB',    av:'EVO.STO',  valuta:'SEK', aantal:25,  gak:651.80,  status:'watch', label:'Overwegen te verkopen' },
-  { naam:'Shell PLC',       av:'SHELL.AMS',valuta:'EUR', aantal:50,  gak:22.795,  status:'ok',    label:'Houden' },
-  { naam:'Viavi Solutions', av:'VIAV',     valuta:'USD', aantal:40,  gak:30.77,   status:'ok',    label:'Houden' },
-  { naam:'Siemens AG',      av:'SIE.XETRA',valuta:'EUR',aantal:5,   gak:213.60,  status:'ok',    label:'Houden' },
-  { naam:'Aalberts NV',     av:'AALB.AMS', valuta:'EUR', aantal:30,  gak:28.38,   status:'ok',    label:'Houden' },
-  { naam:'AB InBev',        av:'ABI.BRSE', valuta:'EUR', aantal:10,  gak:51.07,   status:'ok',    label:'Houden' },
-  { naam:'TSMC ADR',        av:'TSM',      valuta:'USD', aantal:3,   gak:357.14,  status:'ok',    label:'Houden' },
-  { naam:'Nestlé SA',       av:'NESN.SWX', valuta:'CHF', aantal:15,  gak:78.09,   status:'ok',    label:'Houden' },
-  { naam:'Prosus NV',       av:'PRX.AMS',  valuta:'EUR', aantal:21,  gak:38.533,  status:'watch', label:'Heroverwegen' },
-  { naam:'Mondelez',        av:'MDLZ',     valuta:'USD', aantal:15,  gak:66.60,   status:'watch', label:'Heroverwegen' },
-  { naam:'Philips NV',      av:'PHIA.AMS', valuta:'EUR', aantal:36,  gak:24.519,  status:'watch', label:'Heroverwegen' },
-  { naam:'RELX PLC',        av:'REN.AMS',  valuta:'EUR', aantal:null,gak:null,    status:'new',   label:'Koopkandidaat' },
-  { naam:'Unilever PLC',    av:'UNA.AMS',  valuta:'EUR', aantal:null,gak:null,    status:'new',   label:'Koopkandidaat' },
+  { naam:'Evolution AB',    fmp:'EVO.ST',   valuta:'SEK', aantal:25,  gak:651.80,  status:'watch', label:'Overwegen te verkopen' },
+  { naam:'Shell PLC',       fmp:'SHELL.AS', valuta:'EUR', aantal:50,  gak:22.795,  status:'ok',    label:'Houden' },
+  { naam:'Viavi Solutions', fmp:'VIAV',     valuta:'USD', aantal:40,  gak:30.77,   status:'ok',    label:'Houden' },
+  { naam:'Siemens AG',      fmp:'SIE.DE',   valuta:'EUR', aantal:5,   gak:213.60,  status:'ok',    label:'Houden' },
+  { naam:'Aalberts NV',     fmp:'AALB.AS',  valuta:'EUR', aantal:30,  gak:28.38,   status:'ok',    label:'Houden' },
+  { naam:'AB InBev',        fmp:'ABI.BR',   valuta:'EUR', aantal:10,  gak:51.07,   status:'ok',    label:'Houden' },
+  { naam:'TSMC ADR',        fmp:'TSM',      valuta:'USD', aantal:3,   gak:357.14,  status:'ok',    label:'Houden' },
+  { naam:'Nestlé SA',       fmp:'NESN.SW',  valuta:'CHF', aantal:15,  gak:78.09,   status:'ok',    label:'Houden' },
+  { naam:'Prosus NV',       fmp:'PRX.AS',   valuta:'EUR', aantal:21,  gak:38.533,  status:'watch', label:'Heroverwegen' },
+  { naam:'Mondelez',        fmp:'MDLZ',     valuta:'USD', aantal:15,  gak:66.60,   status:'watch', label:'Heroverwegen' },
+  { naam:'Philips NV',      fmp:'PHIA.AS',  valuta:'EUR', aantal:36,  gak:24.519,  status:'watch', label:'Heroverwegen' },
+  { naam:'RELX PLC',        fmp:'REN.AS',   valuta:'EUR', aantal:null,gak:null,    status:'new',   label:'Koopkandidaat' },
+  { naam:'Unilever PLC',    fmp:'UNA.AS',   valuta:'EUR', aantal:null,gak:null,    status:'new',   label:'Koopkandidaat' },
 ];
 
 function fmt(n,dec=2){
@@ -203,7 +201,7 @@ function renderRijen(data){
   const tbody=document.getElementById('portfolio-body');
   tbody.innerHTML='';
   aandelen.forEach(a=>{
-    const koers=data[a.av];
+    const koers=data[a.fmp];
     const heeftPos=a.aantal!=null&&a.gak!=null;
     let koersTxt='<span style="color:var(--ink3);font-size:.8rem">—</span>';
     let waardeTxt='—', wvTxt='<span class="neu">—</span>';
@@ -218,7 +216,7 @@ function renderRijen(data){
     }
     const bc=a.status==='ok'?'badge-ok':a.status==='new'?'badge-new':'badge-watch';
     tbody.innerHTML+=`<tr>
-      <td><span class="name">${a.naam}</span><span class="ticker-label">${a.av}</span></td>
+      <td><span class="name">${a.naam}</span><span class="ticker-label">${a.fmp}</span></td>
       <td>${a.aantal??'—'}</td>
       <td>${a.gak!=null?fmt(a.gak):'—'}</td>
       <td>${koersTxt}</td>
@@ -230,56 +228,57 @@ function renderRijen(data){
 }
 renderRijen({});
 
-async function fetchKoers(symbol, apiKey){
-  const url=`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${encodeURIComponent(symbol)}&apikey=${apiKey}`;
-  try{
-    const r=await fetch(url);
-    if(!r.ok)return null;
-    const j=await r.json();
-    const prijs=parseFloat(j['Global Quote']?.['05. price']);
-    return isNaN(prijs)?null:prijs;
-  }catch{return null;}
-}
-
 async function laadKoersen(){
-  const apiKey=localStorage.getItem('av_api_key');
+  const apiKey=localStorage.getItem('fmp_api_key');
   if(!apiKey){
     document.getElementById('status-bar').className='error';
-    document.getElementById('status-bar').textContent='⚠ Voer eerst je Alpha Vantage API-sleutel in (zie gele balk hierboven).';
+    document.getElementById('status-bar').textContent='⚠ Voer eerst je API-sleutel in (zie gele balk hierboven).';
     return;
   }
   const btn=document.getElementById('refresh-btn');
   const status=document.getElementById('status-bar');
   btn.disabled=true; btn.textContent='↻ Laden…';
-  status.className=''; status.textContent='Koersen ophalen via Alpha Vantage…';
+  status.className=''; status.textContent='Koersen ophalen…';
 
-  const results={};
-  let succes=0;
-  // Sequentieel ophalen om rate limit (5/min gratis) te respecteren
-  for(const a of aandelen){
-    const k=await fetchKoers(a.av,apiKey);
-    results[a.av]=k;
-    if(k!=null)succes++;
-    // 13 seconden wachten tussen calls (max 5 per minuut)
-    if(aandelen.indexOf(a)<aandelen.length-1){
-      await new Promise(r=>setTimeout(r,13000));
+  // Alle symbolen in één batch-call
+  const symbolen=aandelen.map(a=>a.fmp).join(',');
+  const url=`https://financialmodelingprep.com/api/v3/quote/${encodeURIComponent(symbolen)}?apikey=${apiKey}`;
+
+  try{
+    const r=await fetch(url);
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const data=await r.json();
+
+    if(!Array.isArray(data)||data.length===0){
+      status.className='error';
+      status.textContent='⚠ Geen koersen ontvangen. Controleer je API-sleutel.';
+      btn.disabled=false; btn.textContent='↻ Vernieuwen';
+      return;
     }
-    // Update tabel tussentijds
+
+    const results={};
+    data.forEach(q=>{ if(q.symbol&&q.price!=null) results[q.symbol]=q.price; });
+
     renderRijen(results);
-    status.textContent=`Koers ${aandelen.indexOf(a)+1} van ${aandelen.length} opgehaald… (dit duurt ~3 minuten)`;
+
+    const geladen=Object.keys(results).length;
+    const nu=new Date();
+    document.getElementById('datum').textContent='Bijgewerkt: '+
+      nu.toLocaleString('nl-NL',{day:'2-digit',month:'long',hour:'2-digit',minute:'2-digit'});
+    status.textContent=geladen+' van '+aandelen.length+' koersen geladen.';
+
+  }catch(e){
+    status.className='error';
+    status.textContent='⚠ Fout bij ophalen koersen: '+e.message+'. Probeer opnieuw.';
   }
 
-  const nu=new Date();
-  document.getElementById('datum').textContent='Bijgewerkt: '+
-    nu.toLocaleString('nl-NL',{day:'2-digit',month:'long',hour:'2-digit',minute:'2-digit'});
-  status.textContent=succes+' van '+aandelen.length+' koersen geladen. Vertraging ~15 min.';
   btn.disabled=false; btn.textContent='↻ Vernieuwen';
 }
 
 function slaApiSleutelOp(){
   const key=document.getElementById('api-key-input').value.trim();
   if(!key){alert('Voer een geldige sleutel in.');return;}
-  localStorage.setItem('av_api_key',key);
+  localStorage.setItem('fmp_api_key',key);
   document.getElementById('api-banner').style.display='none';
   laadKoersen();
 }
@@ -301,7 +300,7 @@ function slaOp(){
 window.onload=function(){
   const n=localStorage.getItem('beleggings_notities');
   if(n){document.getElementById('notities').value=n;document.getElementById('opgeslagen-tekst').textContent='Geladen uit lokale opslag';}
-  const key=localStorage.getItem('av_api_key');
+  const key=localStorage.getItem('fmp_api_key');
   if(key){
     document.getElementById('api-banner').style.display='none';
     laadKoersen();
